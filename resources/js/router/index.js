@@ -2,16 +2,21 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // Views
 import Home from "../pages/Home";
-import Posts from "../pages/Posts";
+import Setting from "../pages/Setting";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
-import { HomeIcon } from "@heroicons/vue/24/solid"
+import ListSppt from "../pages/sppt/List";
+import PembayaranSppt from "../pages/sppt/Pembayaran";
+import KetetapanPajakDetail from "../pages/ketetapan/KetetapanPajakDetail"
+import RekapKetetapan from "../pages/ketetapan/Rekap"
+import TagihanPernop from "../pages/tagihan/Pernop"
+import { HomeIcon, DocumentTextIcon, ReceiptPercentIcon, Cog6ToothIcon } from "@heroicons/vue/24/solid"
 // WebHistory
 const history = createWebHistory();
 
 const routes = [
     {
-        path: "/login",
+        path: "/web/login",
         component: Login,
         name: "login",
         meta: {
@@ -21,7 +26,7 @@ const routes = [
         },
     },
     {
-        path: "/dashboard",
+        path: "/web/dashboard",
         component: Dashboard,
         name: "dashboard",
         meta: {
@@ -31,65 +36,120 @@ const routes = [
         },
     },
     {
-        path: "/sppt",
+        path: "/web/sppt",
         component: Dashboard,
         name: "sppt",
         meta: {
             title: "SPPT",
+            icon: DocumentTextIcon,
+            hide: false
+        },
+    },
+    {
+        path: "/web/sppt/list",
+        component: ListSppt,
+        name: "sppt-list",
+        meta: {
+            title: "SPPT Yang Tersampaikan",
+            parent: "sppt",
             icon: HomeIcon,
             hide: false
         },
     },
     {
-        path: "/tagihan",
+        path: "/web/sppt/pembayaran",
+        component: PembayaranSppt,
+        name: "sppt-pembayaran",
+        meta: {
+            title: "Pembayaran",
+            icon: HomeIcon,
+            parent: "sppt",
+            hide: false
+        },
+    },
+    {
+        path: "/web/tagihan",
         component: Dashboard,
         name: "tagihan",
         meta: {
-            title: "Tagihan PerNop",
-            icon: HomeIcon,
+            title: "Tagihan",
+            icon: ReceiptPercentIcon,
             hide: false
         },
     },
     {
-        path: "/ketetapan",
-        component: Dashboard,
+        path: "/web/tagihan/pernop",
+        component: TagihanPernop,
+        name: "tagihan-pernop",
+        meta: {
+            title: "Tagihan PerNop",
+            parent: "tagihan",
+            icon: ReceiptPercentIcon,
+            hide: false
+        },
+    },
+    {
+        path: "/web/ketetapan/list",
+        component: KetetapanPajakDetail,
         name: "ketetapan",
         meta: {
             title: "Ketetapan",
-            icon: HomeIcon,
+            icon: DocumentTextIcon,
             hide: false
         },
     },
     {
-        path: "/tunggakan",
+        path: "/web/ketetapan/list",
+        component: KetetapanPajakDetail,
+        name: "ketetapan-list",
+        meta: {
+            title: "Ketetapan Pajak Detil",
+            parent: "ketetapan",
+            icon: DocumentTextIcon,
+            hide: false
+        },
+    },
+    {
+        path: "/web/ketetapan/rekap",
+        component: RekapKetetapan,
+        name: "ketetapan-rekap",
+        meta: {
+            title: "Rekap Ketetapan",
+            parent: "ketetapan",
+            icon: DocumentTextIcon,
+            hide: false
+        },
+    },
+    {
+        path: "/web/tunggakan",
         component: Dashboard,
         name: "tunggakan",
         meta: {
             title: "Tunggakan",
-            icon: HomeIcon,
+            icon: DocumentTextIcon,
             hide: false
         },
     },
     {
-        path: "/realisasi",
+        path: "/web/realisasi",
         component: Dashboard,
         name: "realisasi",
         meta: {
             title: "Realisasi",
-            icon: HomeIcon,
-            hide: false
-        },
-    }, 
-    {
-        path: "/setting",
-        component: Dashboard,
-        name: "setting",
-        meta: {
-            title: "Setting",
-            icon: HomeIcon,
+            icon: DocumentTextIcon,
             hide: false
         },
     },
+    {
+        path: "/web/setting",
+        component: Setting,
+        name: "setting",
+        meta: {
+            title: "Setting",
+            icon: Cog6ToothIcon,
+            hide: false
+        },
+    }
 ];
 
 const router = createRouter({

@@ -12,14 +12,11 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/web/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
 
-Route::get('/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+Route::post('api/ketetapan/import', 'App\Http\Controllers\API\SpptController@importKetetapan');
+Route::get('api/ketetapan', 'App\Http\Controllers\API\KetetapanController@index');
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
