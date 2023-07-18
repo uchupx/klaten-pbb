@@ -74,7 +74,7 @@
       </table> 
     </div>
     <div class="bg-white p-3 inline-block mt-6 rounded-2xl float-right">
-      <pagination></pagination>
+      <!-- <pagination></pagination> -->
     </div>
     <template v-if="showModal">
       <modal :isShow="showModal" @openClose="showModal = !showModal"></modal>

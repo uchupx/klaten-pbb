@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import Setting from "../pages/Setting";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
+import PublicNOP from "../pages/PublicNOP";
+import NOP from "../pages/NOP";
 import ListSppt from "../pages/sppt/List";
 import PembayaranSppt from "../pages/sppt/Pembayaran";
 import KetetapanPajakDetail from "../pages/ketetapan/KetetapanPajakDetail"
@@ -16,11 +18,21 @@ const history = createWebHistory();
 
 const routes = [
     {
-        path: "/web/login",
+        path: "/login",
         component: Login,
         name: "login",
         meta: {
             title: "Login",
+            icon: HomeIcon,
+            hide: true
+        },
+    },
+    {
+        path: "/nop",
+        component: PublicNOP,
+        name: "nop",
+        meta: {
+            title: "Nop",
             icon: HomeIcon,
             hide: true
         },
@@ -74,7 +86,7 @@ const routes = [
         meta: {
             title: "Tagihan",
             icon: ReceiptPercentIcon,
-            hide: false
+            hide: true // hide
         },
     },
     {
@@ -127,7 +139,7 @@ const routes = [
         meta: {
             title: "Tunggakan",
             icon: DocumentTextIcon,
-            hide: false
+            hide: true // hide
         },
     },
     {
@@ -136,6 +148,16 @@ const routes = [
         name: "realisasi",
         meta: {
             title: "Realisasi",
+            icon: DocumentTextIcon,
+            hide: true // hide
+        },
+    },
+    {
+        path: "/web/nop",
+        component: NOP,
+        name: "data-nop",
+        meta: {
+            title: "Data NOP",
             icon: DocumentTextIcon,
             hide: false
         },

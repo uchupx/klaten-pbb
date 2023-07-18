@@ -15,16 +15,8 @@ class CreateTableSppt extends Migration
  {
   Schema::create('sppts', function (Blueprint $table) {
    $table->id();
-   // $table->text("nop");
-   // $table->text("nama");
-   // $table->text("alamat_objek");
-   // $table->text("alamat");
-   // $table->unsignedInteger("total");
-   // $table->dateTime("tanggal_bayar");
    $table->string("nop")->nullable();
-   $table->string("nama_pemilik")->nullable();
    $table->string("kode_wilayah")->nullable();
-   $table->string("blok")->nullable();
    $table->string("no_urut")->nullable();
    $table->string("jenis_op")->nullable();
    $table->string("tahun")->nullable();

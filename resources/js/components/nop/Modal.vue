@@ -7,12 +7,12 @@ export default {
     return {
       form: {
         nop: "",
-        jenis_op: "",
-        tahun: "",
-        jumlah_dibayar: 0,
-        kode_bayar: "",
-        kode_wilayah: "",
-        denda: 0,
+        nama_wp: "",
+        alamat_wp: "",
+        rt_rw: "",
+        blok: "",
+        luas_bumi: 0,
+        luas_bangunan: 0,
       },
       id: null,
       err: ""
@@ -22,17 +22,31 @@ export default {
     isShow: Boolean,
     data: Object,
   },
+  mounted () {
+    if (this.data) {
+        this.form = {
+          nop: this.data.nop,
+          nama_wp: this.data.nama_wp,
+          alamat_wp: this.data.alamat_wp,
+          rt_rw: this.data.rt_rw,
+          blok: this.data.blok,
+          luas_bumi: this.data.luas_bumi,
+          luas_bangunan: this.data.luas_bangunan,
+        }
+        this.id = this.data.id
+      }
+    },
   methods: {
     submit() {
       if (this.id) {
-        return Axios.put('/api/sppt/' +this.id, this.form).then(res => {
+        return Axios.put('/api/nop/' + this.id, this.form).then(res => {
           this.id = null
           this.$emit("openClose", true)
         }).catch(err => {
           this.err = err
         })
       } else {
-        return Axios.post('/api/sppt', this.form).then(res => {
+        return Axios.post('/api/nop', this.form).then(res => {
           this.$emit("openClose", true)
         }).catch(err => {
           this.err = err
@@ -40,21 +54,7 @@ export default {
       }
     },
     isNotValid() {
-      return this.form.nop ==  "" || this.form.jenis_op ==  "" || this.form.tahun ==  "" 
-    }
-  },
-  mounted () {
-  if (this.data) {
-      this.form = {
-        nop: this.data.nop.nop,
-        jenis_op:this.data.jenis_op,
-        tahun:this.data.tahun,
-        jumlah_dibayar:this.data.jumlah_dibayar,
-        kode_bayar:this.data.kode_bayar,
-        kode_wilayah:this.data.kode_wilayah,
-        denda:this.data.denda,
-      }
-      this.id = this.data.id
+      return this.form.nop ==  "" || this.form.nama_wp ==  "" || this.form.blok ==  ""
     }
   }
 }
@@ -62,7 +62,7 @@ export default {
 <template>
   <!-- component -->
     <div class="modal z-50 fixed bg-black w-screen h-screen flex items-center top-0 left-0">
-      <div class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border bg-white border-gray-300 shadow-xl">
+      <div class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border bg-white border-gray-300 shadow-xl overflow-auto">
         <div
           class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
         >
@@ -80,96 +80,71 @@ export default {
             class="p-5 mb-5 bg-white border border-gray-200 rounded shadow-sm h-36"
             id=""
           >
-          <p class="mb-2 font-semibold text-gray-700">Jenis OP</p>
+          <p class="mb-2 font-semibold text-gray-700">Nama</p>
           <input
             type="text"
             name=""
-            v-model="form.jenis_op"
+            v-model="form.nama_wp"
             placeholder="Nama"
             class="p-5 mb-5 bg-white border border-gray-200 rounded shadow-sm h-36"
             id=""
           >
-          <!-- <p class="mb-2 font-semibold text-gray-700">Alamat</p>
+          <p class="mb-2 font-semibold text-gray-700">Alamat</p>
           <textarea
             type="text"
             name=""
+            v-model="form.alamat_wp"
             placeholder="Alamat..."
             class="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
             id=""
           >
           </textarea>
-          <p class="my-2 font-semibold text-gray-700">Alamat Objek</p>
-          <textarea
-            type="text"
-            name=""
-            placeholder="Alamat..."
-            class="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-            id=""
-          >
-          </textarea>
-          <hr /> -->
-<!-- nop
-jenis_op
-tahun
-jumlah_dibayar
-jumlah_bayar
-kode_bayar
-kode_wilayah
-denda -->
+  
+          
           <div class="flex items-center mt-5 mb-3 space-x-4">
             <div class="w-1/2">
-              <p class="my-2 font-semibold text-gray-700">Jumlah Dibayar</p>
+              <p class="my-2 font-semibold text-gray-700">RT RW</p>
+              <input
+                type="text"
+                name=""
+                v-model="form.rt_rw"
+                placeholder="rt 02/10"
+                class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
+                id=""
+              >
+            </div>
+            <div class="w-1/2">
+              <p class="my-2 font-semibold text-gray-700">Blok</p>
+              <input
+                type="text"
+                name=""
+                v-model="form.blok"
+                placeholder="blok"
+                class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
+                id=""
+              >
+            </div>
+            
+          </div>
+          <div class="flex items-center mt-5 mb-3 space-x-4">
+            <div class="w-1/2">
+              <p class="my-2 font-semibold text-gray-700">Luas Bumi</p>
               <input
                 type="number"
                 name=""
-                v-model="form.jumlah_dibayar"
-                placeholder="Rp ...."
+                v-model="form.luas_bumi"
+                placeholder="0 m2"
                 class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
                 id=""
               >
             </div>
             <div class="w-1/2">
-              <p class="my-2 font-semibold text-gray-700">Denda</p>
+              <p class="my-2 font-semibold text-gray-700">Luas Bangunan</p>
               <input
-                type="text"
+                type="number"
                 name=""
-                v-model="form.denda"
-                placeholder="Tahun"
-                class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
-                id=""
-              >
-            </div>
-          </div>
-          <div class="flex items-center mt-5 mb-3 space-x-4">
-            <div class="w-1/3">
-              <p class="my-2 font-semibold text-gray-700">Kode Bayar</p>
-              <input
-                type="text"
-                name=""
-                v-model="form.kode_bayar"
-                placeholder="Total"
-                class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
-                id=""
-              >
-            </div>
-            <div class="w-1/3">
-              <p class="my-2 font-semibold text-gray-700">Kode Wilayah</p>
-              <input
-                type="text"
-                name=""
-                v-model="form.kode_wilayah"
-                placeholder="NOP"
-                class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
-                id=""
-              >
-            </div>
-            <div class="w-1/3">
-              <p class="my-2 font-semibold text-gray-700">Tahun</p>
-              <input
-                type="text"
-                name=""
-                v-model="form.tahun"
-                placeholder="NOP"
+                v-model="form.luas_bangunan"
+                placeholder="0 m2"
                 class="p-5 bg-white border border-gray-200 rounded shadow-sm h-36 w-full"
                 id=""
               >

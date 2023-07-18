@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap">
-    <template v-if="!isLogin && !isNotFound">
+    <template v-if="!isFull && !isNotFound">
     <Navbar></Navbar>
     <Sidebar></Sidebar>
     <div class="custom-container px-10 py-5 bg-gray-200 overflow-y-auto">
@@ -25,7 +25,7 @@ export default {
   name: "App",
   data () {
     return {
-      isLogin: false,
+      isFull: false,
       isNotFound: false,
     }
   },
@@ -39,10 +39,10 @@ export default {
       this.$store.dispatch("titles/setPageTitle", to.meta.title);
 
       if (to.name) {
-        if (to.name == "login") {
-          this.isLogin = true
+        if (to.name == "login" || to.name == "nop") {
+          this.isFull = true
         } else {
-          this.isLogin = false
+          this.isFull = false
         }
       } else {
         this.isNotFound = true

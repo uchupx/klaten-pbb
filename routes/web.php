@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/web/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+Route::get('/', function () {
+ return redirect('/nop');
+});
 
-Route::post('api/ketetapan/import', 'App\Http\Controllers\API\SpptController@importKetetapan');
-Route::get('api/ketetapan', 'App\Http\Controllers\API\KetetapanController@index');
+Route::get('/login', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+Route::get('/nop', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+ Route::get('/web/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+});
 
 Auth::routes();

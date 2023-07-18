@@ -9,4 +9,10 @@ class Ketetapan extends Model
 {
  use HasFactory;
  protected $guarded = [];
+ public function nop() {
+  /**
+ * Get the user that owns the phone.
+ */
+    return $this->belongsTo(Nop::class, 'nop', 'nop');
+ }
 }

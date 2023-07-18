@@ -1,32 +1,54 @@
+<script>
+import axios from 'axios'
+export default {
+  data () {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      msg: null
+    }
+  },
+  methods: {
+    doLogin() { 
+      return axios.post("/api/login", this.form).then(res => { 
+        console.log(res)
+        this.$router.push("/web/dashboard")
+      }).catch(err => {
+        this.msg ="Gagal login, pastikan email dan password benar"
+      })
+    }
+  }
+}
+</script>
 <template>
 <div class="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
   <!-- Login component -->
   <div class="flex shadow-md">
     <!-- Login form -->
     <div class="flex flex-wrap content-center justify-center rounded-l-md bg-white" style="width: 24rem; height: 32rem;">
-      <div class="w-72">
+      <div class="w-72 p-4">
         <!-- Heading -->
         <h1 class="text-xl font-semibold">Selamat Datang</h1>
-        <small class="text-gray-400">Pemerintah Kabupaten Klaten BPKAD Kabupaten Klaten</small>
-
+        <small class="text-gray-400">Pemerintah Kabupaten Klaten BPKAD Kabupaten Klaten</small><br>
+        <small class="text-red-700">{{ msg }}</small>
         <!-- Form -->
         <form class="mt-4">
           <div class="mb-3">
             <label class="mb-2 block text-xs font-semibold">Email</label>
-            <input type="email" placeholder="Enter your email" class=" p-2 block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+            <input type="email" placeholder="Enter your email" v-model="form.email" class=" p-2 block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
           </div>
 
           <div class="mb-3">
             <label class="mb-2 block text-xs font-semibold">Password</label>
-            <input type="password" placeholder="*****" class=" p-2 block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+            <input type="password" placeholder="*****" v-model="form.password"  class="p-2 block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
           </div>
 
           <div class="mb-3">
-            <button class="mb-1.5 block w-full text-center text-white bg-yellow-500 hover:bg-yellow-700 px-2 py-3 rounded-md">Sign in</button>
+            <button type="button" class="mb-1.5 block w-full text-center text-white bg-yellow-500 hover:bg-yellow-700 px-2 py-3 rounded-md" :disabled="!form.email || !form.password" @click="doLogin()">Sign in</button>
           </div>
         </form>
-
-    
       </div>
     </div>
 
